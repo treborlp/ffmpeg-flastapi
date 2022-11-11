@@ -1,14 +1,13 @@
 from fastapi import FastAPI
-import os
+import subprocess
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    stream = os.popen('ls -l')
-    output = stream.read()
-    return {"message": output}
+    stream_pipe = subprocess.call('../stream.sh')
+    return {"message": stream_pipe}
 
 
 @app.get("/hello/{name}")
